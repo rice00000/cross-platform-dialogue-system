@@ -1,0 +1,8 @@
+id,type,speakerKey,textKey,next,condition,event,portrait
+start,line,speaker_mara,line_start,ask_path,,evt_intro_seen,portraits/mara_neutral.png
+ask_path,choice,speaker_mara,line_ask_path,,,,portraits/mara_neutral.png
+forest,line,speaker_mara,line_forest,end_good,,evt_path_forest,portraits/mara_happy.png
+city,line,speaker_mara,line_city,end_neutral,,evt_path_city,portraits/mara_worried.png
+locked,line,speaker_mara,line_locked,ask_path,has_badge,evt_locked_seen,portraits/mara_surprised.png
+end_good,end,speaker_mara,line_end_good,,,,portraits/mara_happy.png
+end_neutral,end,speaker_mara,line_end_neutral,,,,portraits/mara_worried.png

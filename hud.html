@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dialogue HUD</title>
+  <style>
+    /* ── design tokens ───────────────────────────────────────────── */
+    :root {
+      --hud-h: 200px;                   /* bar height — tweak to match game res */
+      --portrait-overlap: 48px;         /* how far portrait bleeds into HUD */
+      --hud-bg: rgba(6, 8, 14, 0.84);
+      --gold:   #f2bf5e;
+      --text:   #eef1f5;
+      --muted:  #9aa3b2;
+      --green:  #7bd88f;
+      --line:   rgba(255, 255, 255, 0.10);
+      font-family: "Source Han Sans CN", "Noto Sans CJK SC", Inter, ui-sans-serif, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: transparent;          /* game scene renders behind this layer */
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* clicks pass through to game everywhere except .hud and .choices-wrap */
+    body { pointer-events: none; }
+
+    /* ── portrait ────────────────────────────────────────────────── */
+    /* fixed position — bleed upward from HUD top edge */
+    #portrait {
+      position: fixed;
+      right: 52px;
+      bottom: calc(var(--hud-h) - var(--portrait-overlap));
+      max-height: 360px;
+      max-width: 280px;
+      object-fit: contain;
+      object-position: bottom center;
+      transform: translateZ(0);         /* own compositor layer — no repaint on transition */
+      transition: opacity 0.15s, transform 0.15s;
+      z-index: 101;
+      pointer-events: none;
+      opacity: 0;
+    }
+    #portrait.visible { opacity: 1; }
+
+    /* subtle enter animation when portrait changes */
+    #portrait.enter {
+      animation: portrait-in 0.18s ease-out forwards;
+    }
+    @keyframes portrait-in {
+      from { opacity: 0; transform: translateZ(0) translateY(6px); }
+      to   { opacity: 1; transform: translateZ(0) translateY(0);   }
+    }
+
+    /* ── choice buttons (float above HUD) ───────────────────────── */
+    #choices {
+      position: fixed;
+      bottom: calc(var(--hud-h) + 14px);
+      left: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: auto;
+      z-index: 100;
+    }
+
+    .choice-btn {
+      padding: 9px 22px;
+      min-width: 220px;
+      text-align: left;
+      font: inherit;
+      font-size: 15px;
+      color: var(--text);
+      background: rgba(10, 12, 20, 0.80);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      cursor: pointer;
+      pointer-events: auto;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: border-color 0.10s, background 0.10s;
+    }
+    .choice-btn:hover {
+      border-color: var(--green);
+      background: rgba(123, 216, 143, 0.10);
+    }
+
+    /* ── HUD bar ─────────────────────────────────────────────────── */
+    #hud {
+      position: fixed;
+      inset: auto 0 0 0;
+      height: var(--hud-h);
+      display: grid;
+      /* right column reserves space for portrait — text won't overlap */
+      grid-template-columns: 1fr 320px;
+      background: var(--hud-bg);
+      border-top: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      pointer-events: auto;
+      z-index: 100;
+    }
+
+    /* left column: name / text / controls */
+    .hud-left {
+      display: grid;
+      grid-template-rows: 40px 1fr 44px;
+      padding: 12px 20px 10px 28px;
+      gap: 4px;
+    }
+
+    /* gold left-bar name badge */
+    .name-row { display: flex; align-items: center; }
+    #speaker {
+      padding: 0 14px;
+      border-left: 3px solid var(--gold);
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    /* dialogue body — clamp to 3 lines to avoid resize */
+    #text {
+      font-size: clamp(15px, 1.7vw, 20px);
+      line-height: 1.6;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+    /* bottom row: action btn + spacer + lang */
+    #controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #action-btn {
+      height: 30px;
+      padding: 0 18px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--green);
+      background: rgba(123, 216, 143, 0.08);
+      border: 1px solid rgba(123, 216, 143, 0.30);
+      border-radius: 3px;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: background 0.10s;
+    }
+    #action-btn:hover { background: rgba(123, 216, 143, 0.16); }
+    #action-btn:empty { display: none; }
+
+    /* language selector — always in main UI */
+    #lang {
+      height: 30px;
+      padding: 0 8px;
+      margin-left: auto;
+      font: inherit;
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    /* right col: transparent — portrait sits here via fixed positioning */
+    .hud-right { pointer-events: none; }
+
+    /* error state */
+    .err { color: #ff6b6b; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <!-- choices float above the HUD bar -->
+  <div id="choices"></div>
+
+  <!-- HUD bar -->
+  <div id="hud">
+    <div class="hud-left">
+      <div class="name-row"><div id="speaker"></div></div>
+      <div id="text"></div>
+      <div id="controls">
+        <button id="action-btn"></button>
+        <select id="lang"></select>
+      </div>
+    </div>
+    <div class="hud-right"></div>
+  </div>
+
+  <!-- portrait — fixed position, source set from nodes.portrait field -->
+  <img id="portrait" alt="">
+
+  <script src="dialogue-engine.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const ui = {
+      speaker:   $("speaker"),
+      text:      $("text"),
+      choices:   $("choices"),
+      actionBtn: $("action-btn"),
+      lang:      $("lang"),
+      portrait:  $("portrait"),
+    };
+
+    let _lastPortrait = "";
+    function setPortrait(path) {
+      if (path === _lastPortrait) return;
+      _lastPortrait = path;
+      const img = ui.portrait;
+      if (!path) { img.classList.remove("visible", "enter"); return; }
+      img.classList.remove("enter");
+      void img.offsetWidth;  // force reflow to restart CSS animation
+      img.src = path;
+      img.classList.add("visible", "enter");
+    }
+
+    function showErr(msg) {
+      ui.speaker.textContent   = "Error";
+      ui.text.innerHTML        = `<span class="err">${msg}</span>`;
+      ui.choices.innerHTML     = "";
+      ui.actionBtn.textContent = "";
+    }
+
+    DialogueEngine.onLoad = ({ languages, state }) => {
+      ui.lang.innerHTML = "";
+      languages.forEach(lang =>
+        ui.lang.append(new Option(lang, lang, lang === state.lang, lang === state.lang))
+      );
+    };
+
+    DialogueEngine.onRender = (node, { t, enter, choose, choices }) => {
+      ui.speaker.textContent   = t(node.speakerKey);
+      ui.text.textContent      = t(node.textKey);
+      ui.choices.innerHTML     = "";
+      ui.actionBtn.textContent = "";
+
+      setPortrait(node.portrait);
+
+      if (node.type === "choice") {
+        choices(node.id).forEach(c => {
+          const btn = document.createElement("button");
+          btn.className   = "choice-btn";
+          btn.textContent = t(c.textKey);
+          btn.onclick = () => choose(c);
+          ui.choices.append(btn);
+        });
+      } else if (node.type === "line") {
+        ui.actionBtn.textContent = t("ui_next");
+        ui.actionBtn.onclick = () => enter(node.next);
+      } else if (node.type === "end") {
+        ui.actionBtn.textContent = t("ui_restart");
+        ui.actionBtn.onclick = () => enter("start");
+      }
+    };
+
+    DialogueEngine.onError = showErr;
+
+    ui.lang.onchange = () => DialogueEngine.setLanguage(ui.lang.value);
+
+    DialogueEngine.load().catch(e => showErr(e.message));
+  </script>
+</body>
+</html>
