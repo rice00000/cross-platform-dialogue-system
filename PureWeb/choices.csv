@@ -1,0 +1,23 @@
+nodeId,choiceId,textKey,next,condition,effect,event
+street,c_meet_mara,choice_meet_mara,meet_mara,,,evt_choose_meet_mara
+street,c_go_alone,choice_go_alone,route_hub,,reputation=2,evt_play_cool
+trust_choice,c_share_truth,choice_share_truth,route_hub,,reputation=5,evt_share_truth
+trust_choice,c_play_cool,choice_play_cool,route_hub,,reputation=2,evt_play_cool
+route_hub,c_market,choice_market,market_choice,,,evt_route_market
+route_hub,c_forest,choice_forest,forest_choice,,route=forest,evt_route_forest
+route_hub,c_city_gate,choice_city_gate,guard_choice,,route=city,evt_route_city
+route_hub,c_service_road,choice_service_road,service_road,has_badge && !alarm,,evt_choose_service_road
+market_choice,c_vendor_help,choice_vendor_help,vendor_help,reputation >= 4 || met_mara,,evt_choose_vendor_help
+market_choice,c_vendor_steal,choice_vendor_steal,vendor_steal,!has_badge,,evt_choose_vendor_steal
+market_choice,c_market_leave,choice_market_leave,route_hub,,,evt_choose_market_leave
+forest_choice,c_river,choice_river,route_hub,,,evt_river_crossed
+forest_choice,c_old_shrine,choice_old_shrine,old_shrine,route == forest && met_mara,,evt_choose_old_shrine
+forest_choice,c_forest_back,choice_forest_back,route_hub,,,evt_choose_forest_back
+guard_choice,c_guard_convince,choice_guard_convince,guard_convince,reputation >= 5 || has_badge,,evt_choose_guard_convince
+guard_choice,c_guard_bluff,choice_guard_bluff,guard_alarm,!has_badge || alarm,,evt_choose_guard_bluff
+guard_choice,c_guard_back,choice_guard_back,route_hub,,,evt_choose_guard_back
+alarm_choice,c_hide,choice_hide,hide,,,evt_choose_hide
+alarm_choice,c_run,choice_run,run,,,evt_choose_run
+vault_choice,c_quiet_escape,choice_quiet_escape,quiet_escape,!alarm && (has_badge || reputation >= 5),,evt_choose_quiet_escape
+vault_choice,c_signal_mara,choice_signal_mara,signal_mara,met_mara,,evt_choose_signal_mara
+vault_choice,c_smash,choice_smash,run,alarm || !has_badge,,evt_choose_smash

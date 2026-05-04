@@ -1,0 +1,13 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\pluginbuild\\dialoguebridge\\hostproject\\plugins\\dialoguebridge\\source\\dialoguebridge\\private\\dialoguebridgemodule.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\pluginbuild\\dialoguebridge\\hostproject\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "d:\\pluginbuild\\dialoguebridge\\hostproject\\plugins\\dialoguebridge\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\dialoguebridge\\definitions.dialoguebridge.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

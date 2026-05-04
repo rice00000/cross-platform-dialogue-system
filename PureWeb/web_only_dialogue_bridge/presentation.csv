@@ -1,0 +1,4 @@
+speakerKey,portrait,nodeId,audio
+speaker_you,web_only_dialogue_bridge/Chara1.png,start,web_only_dialogue_bridge/line_start_ISpotBlackTower.mp3
+speaker_mara,web_only_dialogue_bridge/Chara3.webp,,
+speaker_narrator,web_only_dialogue_bridge/Chara2.png,,

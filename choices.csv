@@ -1,4 +1,0 @@
-nodeId,choiceId,textKey,next,condition,event
-ask_path,c_forest,choice_forest,forest,,evt_choose_forest
-ask_path,c_city,choice_city,city,,evt_choose_city
-ask_path,c_locked,choice_locked,locked,has_badge,evt_choose_locked

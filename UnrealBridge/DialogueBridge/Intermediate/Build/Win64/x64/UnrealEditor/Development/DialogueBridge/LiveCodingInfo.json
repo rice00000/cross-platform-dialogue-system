@@ -1,0 +1,12 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.DialogueBridge.cpp.obj": [
+			"DialogueBridge.init.gen.cpp.obj",
+			"DialogueBridgeComponent.gen.cpp.obj",
+			"PerModuleInline.gen.cpp.obj",
+			"DialogueBridgeComponent.cpp.obj",
+			"DialogueBridgeModule.cpp.obj"
+		]
+	}
+}

@@ -1,0 +1,40 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\game_production\\testaudioproject\\plugins\\dialoguebridge\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\dialoguebridge\\module.dialoguebridge.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\game_production\\testaudioproject\\intermediate\\build\\win64\\x64\\testaudioprojecteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.valexpapi.cpp20.h.pch",
+        "Includes": [
+            "d:\\game_production\\testaudioproject\\plugins\\dialoguebridge\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\dialoguebridge\\definitions.dialoguebridge.h",
+            "d:\\game_production\\testaudioproject\\plugins\\dialoguebridge\\intermediate\\build\\win64\\unrealeditor\\inc\\dialoguebridge\\uht\\dialoguebridge.init.gen.cpp",
+            "d:\\game_production\\testaudioproject\\plugins\\dialoguebridge\\intermediate\\build\\win64\\unrealeditor\\inc\\dialoguebridge\\uht\\dialoguebridgecomponent.gen.cpp",
+            "d:\\game_production\\testaudioproject\\plugins\\dialoguebridge\\source\\dialoguebridge\\public\\dialoguebridgecomponent.h",
+            "d:\\game_production\\testaudioproject\\plugins\\dialoguebridge\\intermediate\\build\\win64\\unrealeditor\\inc\\dialoguebridge\\uht\\dialoguebridgecomponent.generated.h",
+            "d:\\game_production\\testaudioproject\\plugins\\dialoguebridge\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\dialoguebridge\\permoduleinline.gen.cpp",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\source\\runtime\\core\\public\\hal\\permoduleinline.inl",
+            "d:\\game_production\\testaudioproject\\plugins\\dialoguebridge\\source\\dialoguebridge\\private\\dialoguebridgecomponent.cpp",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\plugins\\runtime\\webbrowserwidget\\source\\webbrowserwidget\\public\\webbrowser.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\source\\runtime\\umg\\public\\components\\widget.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\source\\runtime\\umg\\public\\binding\\states\\widgetstatebitfield.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\widgetstatebitfield.generated.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\source\\runtime\\fieldnotification\\public\\fieldnotificationdeclaration.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\source\\runtime\\fieldnotification\\public\\ifieldnotificationclassdescriptor.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\source\\runtime\\fieldnotification\\public\\inotifyfieldvaluechanged.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\fieldnotification\\uht\\inotifyfieldvaluechanged.generated.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\source\\runtime\\umg\\public\\components\\visual.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\visual.generated.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\source\\runtime\\umg\\public\\components\\slatewrappertypes.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\slatewrappertypes.generated.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\source\\runtime\\umg\\public\\slate\\widgettransform.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\widgettransform.generated.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\source\\runtime\\umg\\public\\blueprint\\widgetnavigation.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\source\\runtime\\slatecore\\public\\types\\navigationmetadata.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\widgetnavigation.generated.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\widget.generated.h",
+            "d:\\program files\\epic games\\ue_5.6\\engine\\plugins\\runtime\\webbrowserwidget\\intermediate\\build\\win64\\unrealeditor\\inc\\webbrowserwidget\\uht\\webbrowser.generated.h",
+            "d:\\game_production\\testaudioproject\\plugins\\dialoguebridge\\source\\dialoguebridge\\private\\dialoguebridgemodule.cpp"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

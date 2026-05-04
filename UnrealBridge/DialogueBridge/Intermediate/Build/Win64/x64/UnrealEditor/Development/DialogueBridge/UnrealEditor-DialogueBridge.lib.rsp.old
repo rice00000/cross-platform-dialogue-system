@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-DialogueBridge.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"D:/Game_Production/TestAudioProject/Intermediate/Build/Win64/x64/UnrealEditor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.h.obj"
+"D:/Game_Production/TestAudioProject/Plugins/DialogueBridge/Intermediate/Build/Win64/x64/UnrealEditor/Development/DialogueBridge/Module.DialogueBridge.cpp.obj"
+"D:/Game_Production/TestAudioProject/Plugins/DialogueBridge/Intermediate/Build/Win64/x64/UnrealEditor/Development/DialogueBridge/Default.rc2.res"
+/OUT:"D:/Game_Production/TestAudioProject/Plugins/DialogueBridge/Intermediate/Build/Win64/x64/UnrealEditor/Development/DialogueBridge/UnrealEditor-DialogueBridge.lib"

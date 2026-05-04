@@ -1,0 +1,7 @@
+{
+	"OutputFiles": [
+		"..\\..\\..\\x64\\UnrealGame\\Development\\DialogueBridge\\Module.DialogueBridge.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Development\\DialogueBridge\\DialogueBridgeComponent.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Development\\DialogueBridge\\DialogueBridgeModule.cpp.obj"
+	]
+}
